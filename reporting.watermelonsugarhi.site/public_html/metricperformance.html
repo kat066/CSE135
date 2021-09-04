@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/grid.css">
+    <title>User Device Report</title>
+    <script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="./logout"><button>Logout</button></a>
+        <a href="/"><button>DashBoard</button></a>
+        <div class="dropdown">
+            <span>Reports</span>
+            <div class="dropdown-content">
+              <a href="./devicereport"><button>Device</button></a>
+              <a href="./languagereport"><button>Language</button></a>
+              <a href="./performancereport"><button>Performance</button></a>
+            </div>
+          </div>
+      </nav>
+      <div style="width: 100%;">
+        <zing-grid id="Grid"  sort  height="500px"  
+          caption="Performance" theme="black">
+          <zg-data id="dataGrid"></zg-data>
+          <zg-colgroup>
+            <zg-column index="Duration of pageload" type="number" header="Duration of pageload" sort-desc="false"></zg-column>
+            <zg-column index="Page transfer size" type="number" header="Page transfer size" ></zg-column>
+            <zg-column index="Page decoded size" type="number" header="Page decoded size" ></zg-column>
+          </zg-colgroup>
+        </zing-grid>
+    </div>
+      
+    <script src="/static/draw.js"></script>
+
+<p>
+    - Why:  We want to keep track of how is our website performing - is it too slow for our user? 
+    is the load time acceptable given the page transfer size? 
+    If it's too slow for users, Is the page compression working properly? 
+    We use a Gird for our data because grid can sort data easily and allow us to compare directly with other data.    
+</p>
+<p>
+    - How:    So we need data from the performance data. We obtianed duration of page load, page transfer size,    
+    and page decoded size.  and we sort our data in descending order. This way we can compare the slowest time and     
+   page size, and determine if that is acceptable. We can also look at other data to determine if it was an exeption that it was slow.
+   We can not view all time at once and without the compare we will not able to tell     
+    if this druation time is fast or slow.    
+</p>
+<p>
+    - Read from Grid: At the time I was wtring this report, the longest duration is, 624.4, and the shortest is 50.2.
+    So this is very obvious that the fastest is way faster than slowest. So, if we trace back thru the session id, we can 
+    find what request this was and what devices was this session on, and we can utilize for them on our website.
+</p>
+<p>
+    - Bebefit:  By analysing the response time, we are able to trace back and improve out website, which essentially falls back to 
+    improve our user experience and keep and bring traffic to the site.    
+</p>
+
+</body>
+
+</html>

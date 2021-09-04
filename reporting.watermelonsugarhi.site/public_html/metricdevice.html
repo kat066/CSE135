@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/grid.css">
+    <title>User Device Report</title>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="./logout"><button>Logout</button></a>
+        <a href="/"><button>DashBoard</button></a>
+        <div class="dropdown">
+            <span>Reports</span>
+            <div class="dropdown-content">
+              <a href="./devicereport"><button>Device</button></a>
+              <a href="./languagereport"><button>Language</button></a>
+              <a href="./performancereport"><button>Performance</button></a>
+            </div>
+          </div>
+      </nav>
+      <div id="PieChart" class="chart--container"></div>
+
+<script src="/static/draw.js"></script>
+
+<p>
+    - Why:  Device upgrade is more and more frequent right now, there are several devices coming out every year.
+    those new devices have stronger CPU, larger RAM, faster storage, so they can handle big website easily. However, not    
+    all users will get a new phone or a new labtop every year. So, when making a website, we need to consider those     
+    devices too. We need to make our website run fast on old devices too.
+    Also, some user agents will be banned from the website because they think this agent is a bot. By analyzing this, we could
+    reduce the possiblity of blocking our real user. We use a pie chart because we want to know the porpotion of each user agent,
+    and we want a chart that can allow us to tell the difference in the propotion of users for each user agent.
+</p>
+<p>
+    - How: We are taking the data from our static datas - User Agent. And we are using pie chart to show what kind of devices   
+    are mostly used among our users; that way we know what agent are most common ones, so we could rule out those are not   
+    so common. Also, we could tell from the data, what operating system my users are using, what browsers they are using.    
+    And we could adjust our website accrordingly.   
+</p>
+<p>
+    - Read from Chart: We can see from the pie chart that big part of our users are using Windows computer, but some of iphone, ipad, mac 
+    users too. For me, when I open the website, it is too big for my phone, and I will have to manually adjust it to proper size for me. So, with
+    this data, we can make our website to be auto adjust to different devices.
+</p>
+<p>
+    - Bebefit: By doing this we could improve the user experience. And users will find our website is easier to use(faster, adjust to      
+    their devices, etc.). This is a win-win situation.       
+</p>
+
+</body>
+
+</html>

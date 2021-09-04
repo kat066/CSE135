@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+  <script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="/static/grid.css">
+</head>
+
+<body>
+  <nav>
+    <a href="./logout"><button>Logout</button></a>
+    <%- adminbutton %>
+    <div class="dropdown">
+      <span>Reports</span>
+      <div class="dropdown-content">
+        <a href="./devicereport"><button>Device</button></a>
+        <a href="./languagereport"><button>Language</button></a>
+        <a href="./performancereport"><button>Performance</button></a>
+      </div>
+    </div>
+  </nav>
+  <div class="chart-parent--container">
+    <div id="LineChart" class="chart--container"></div>
+    <div class="chart--container">
+      <zing-grid id="Grid"  sort  height="500px"  
+        caption="Performance" theme="black">
+        <zg-data id="dataGrid"></zg-data>
+        <zg-colgroup>
+          <zg-column index="Duration of pageload" type="number" header="Duration of pageload" sort-desc="true"></zg-column>
+          <zg-column index="Page transfer size" type="number" header="Page transfer size" ></zg-column>
+          <zg-column index="Page decoded size" type="number" header="Page decoded size" ></zg-column>
+        </zg-colgroup>
+      </zing-grid>
+    </div>
+
+    <div id="PieChart" class="chart--container"></div>
+    <div id="WordChart" class="chart--container"></div>
+
+      <script>
+        var myData
+        $.getJSON("https://watermelonsugarhi.site/api/performance",function(data){
+            myData=data;
+            var object=[];
+            for(var i in myData){
+                if(myData[i].ready=="true"&&myData[i].duration!=null){
+                    var config={
+                        "Duration of pageload":Number(myData[i].duration).toFixed(2),
+                        "Page transfer size":myData[i].transferSize,
+                        "Page decoded size":myData[i].decodedBodySize
+                    }
+                    object.push(config);
+                }    
+            }
+            document.getElementById("dataGrid").data=object;
+          }); 
+      </script>
+
+
+<script src="/static/draw.js"></script>
+</body>
+
+</html>

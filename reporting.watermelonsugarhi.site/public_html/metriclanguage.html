@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/grid.css">
+    <title>User Device Report</title>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="./logout"><button>Logout</button></a>
+        <a href="/"><button>DashBoard</button></a>
+        <div class="dropdown">
+            <span>Reports</span>
+            <div class="dropdown-content">
+              <a href="./devicereport"><button>Device</button></a>
+              <a href="./languagereport"><button>Language</button></a>
+              <a href="./performancereport"><button>Performance</button></a>
+            </div>
+          </div>
+      </nav>
+    <div id="WordChart" class="chart--container"></div>
+
+    <script src="/static/draw.js"></script>
+
+<p>
+    - Why: In an increasingly connected world, multi-language websites are becoming more and more common.      
+And user experience and customer support are very important to every company’s success.   
+By analysing data like this we should be able to find out what user speaking what laguage are using our website,      
+We could develop our webpage using different languages that are commanly used in our user group. We choose a word cloud
+becasue using a word cloud we can easily tell which langauge is the dominant language for our users, and as for right now
+we don't really need to know how many exactly, the size of the word in the word cloud gives us a pretty good estimate.  
+</p>
+<p>
+    - How: We are taking data from our static datas, detecting browser preference is the most common and most effective way 
+    used by websites to detect your preferred language automatically compare to looking up to ip address, which is     
+    hard and tedious. We use a word cloud.
+</p>
+<p>
+    - Read from chart: From the chart we can see that the language used among our users is Engilsh, but along we have seen some
+ Chinses users, Japanese users, etc. If we are making a to Client website, we can definately consider having different
+ language for our website. 
+</p>
+<p>
+    - Bebefit: We could develop features like automatically detecting users prefered languages, for examples when you are       
+    using google search in Japan,when  you search apple, the top feed will taking you to apple.com/jp/ instead of apple.com    
+    In this way, the user do not need to scrolldown to the end of the page then change the language/region. Thus, this  
+    will bring good user experience to our web users.     
+</p>
+
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/user.css">
+</head>
+<script>
+    function handleDelete(elem,username){
+        if(confirm("Do you want to delete user with username "+username+"?")){
+            $.ajax({
+                url: "/user/"+username,
+                type: 'DELETE',
+                dataType: 'json',
+                success: function(response) {
+                    console.log("delete request send");
+                    elem.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode);
+                },
+                error: function() { 
+                    alert("Deletion Failed");
+                    location.reload();
+                }    
+                
+            });
+        }
+    }
+
+    function handleCancel(elem){
+        location.reload();
+    }
+    function handleUpdate(elem,username){
+        let p = elem.parentNode.parentNode.children;
+        $.ajax({
+                url: "/user/"+p[0].innerHTML,
+                type: 'PUT',
+                dataType: 'json',
+                data:{
+                    originalUsername:username,
+                    username:p[0].innerHTML,
+                    email:p[1].innerHTML,
+                    password:p[2].innerHTML,
+                    admin:p[3].innerHTML
+                },
+                success: function(response) {
+                    console.log("update request send");
+                    location.reload();
+                },
+                error: function() { 
+                    alert("Invalid Input, please try again.");
+                    location.reload();
+                }      
+                
+        });
+    }
+    function handleEdit(elem){
+        let p =elem.parentNode;
+        for(var i=0;i<4;i++){
+            // console.log(elem.parentNode.parentNode.children[i]);
+           p.parentNode.children[i].contentEditable='true';
+           p.parentNode.children[i].type="email";
+           p.parentNode.children[i].style.border='medium solid black';
+        }
+        p.children[0].style.display="none";
+        p.children[1].style.display="none";
+        p.children[2].style.display="initial";
+        p.children[3].style.display="initial";
+    }
+  </script>
+<body>
+    <nav>
+        <a href="./logout"><button>Logout</button></a>
+        <a href="/"><button>DashBoard</button></a>
+      </nav>
+    <h1>User Management</h1>
+    <table style="width:100%"> 
+        <tr>
+                <th>username</th>
+                <th>email</th>
+                <th>password</th>
+                <th>admin</th>
+                <th>Action</th>
+        </tr>
+        <% users.forEach(function(user){%>
+            <tr>
+                <th><%= user.username %></th>
+                <th><%= user.email %></th>
+                <th><%= user.password %></th>
+                <th><%= user.admin %></th>
+                <th>
+                    <button type="button" onclick="handleDelete(this,'<%= user.username %>')">delete</button>
+                    <button type="button" onclick="handleEdit(this)">edit</button>
+                    <button id=type="button" style="display:none" onclick="handleUpdate(this,'<%= user.username %>')" >update</button>
+                    <button type="button" style="display:none" onclick="handleCancel(this)">cancel</button>
+                </th>
+            </tr>
+        <% });%>
+        </table>
+        <br><br>
+        <details>
+            <summary>Create User:</summary>
+            <form style="margin-left:  2%;" id="createForm" action="/user">
+                Username:<br>
+                <input type="text" name="username" placeholder="Username" required> <br><br>
+                Email:<br>
+                <input type="email" name="email" placeholder="Email" required> <br><br>
+                Password:<br>
+                <input type="password" name="password" placeholder="Password" required><br><br>
+                Admin:<br>
+                <select name="admin">
+                    <option value=1>true</option>
+                    <option value=0>false</option>
+                </select><br><br>
+                <input type="submit" value="create">
+            </form>
+        </details>
+        <script>
+            $("#createForm").submit(function(e){
+                e.preventDefault();
+                const data = new FormData(e.target);
+                var form = $(this);
+                var url = form.attr('action');
+                const value=Object.fromEntries(data.entries());
+                $.ajax({
+                    type:"POST",
+                    url:url,
+                    data:value,
+                    success: function(response) {
+                        alert("New user successfully created!");
+                        location.reload();
+                    },
+                    error: function(response) { 
+                        alert("Invalid Input, please try again.");
+                        location.reload();
+                    }  
+                });
+            });
+        </script>
+        
+        
+</body>
+</html>
